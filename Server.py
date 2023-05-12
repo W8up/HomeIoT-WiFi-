@@ -2,8 +2,10 @@ import network
 import socket
 import json
 from time import sleep
-from lib.picozero import pico_temp_sensor, pico_led
 import machine
+import types.light.picoLED as device #Type of device see /types
+#Port to use
+port = 80
 
 ssid = 'ssid'
 password = 'password'
@@ -34,35 +36,18 @@ def serve(connection):
         client = connection.accept()[0]
         request = client.recv(1024)
         request = str(request)
-        data = {}
         try:
             request = request.split()[1]
         except IndexError:
             pass
-        if request == '/lighton?':
-            pico_led.on()
-            if pico_led.value == 1:
-                data['ack'] = 'Success'
-            else:
-                data['ack'] = 'Failed'
-        if request == '/lightoff?':
-            pico_led.off()
-            if pico_led.value == 0:
-                data['ack'] = 'Success'
-            else:
-                data['ack'] = 'Failed'
-        if request == '/state?':
-            data['led'] = pico_led.value
-            data['temp'] = pico_temp_sensor.temp
-        else:
-            data['error'] = 'Invalid Request'
+        data = device.request(request)
         client.send(json.dumps(data))
         client.close()
         
     
 try:
     ip = connect()
-    connection = open_socket(ip, 80)
+    connection = open_socket(ip, port)
     serve(connection)
 except KeyboardInterrupt:
     machine.reset()
