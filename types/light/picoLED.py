@@ -10,13 +10,13 @@ def request(request: str) -> dict:
             data['ack'] = 'Success'
         else:
             data['ack'] = 'Failed'
-    if request == '/lightoff?':
+    elif request == '/lightoff?':
         pico_led.off()
         if pico_led.value == 0:
             data['ack'] = 'Success'
         else:
             data['ack'] = 'Failed'
-    if request == '/state?':
+    elif request == '/state?':
         data['led'] = pico_led.value
         data['temp'] = pico_temp_sensor.temp
     else:

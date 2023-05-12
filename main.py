@@ -3,12 +3,13 @@ import socket
 import json
 from time import sleep
 import machine
+import creds
 import types.light.picoLED as device #Type of device see /types
 #Port to use
 port = 80
 
-ssid = 'ssid'
-password = 'password'
+ssid = creds.ssid
+password = creds.password
 
 def connect():
     #Connect to WLAN
@@ -43,11 +44,7 @@ def serve(connection):
         data = device.request(request)
         client.send(json.dumps(data))
         client.close()
-        
     
-try:
-    ip = connect()
-    connection = open_socket(ip, port)
-    serve(connection)
-except KeyboardInterrupt:
-    machine.reset()
+ip = connect()
+connection = open_socket(ip, port)
+serve(connection)

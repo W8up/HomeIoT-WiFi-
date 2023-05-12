@@ -1,2 +1,2 @@
-import Server
+import main
 from .types import *
