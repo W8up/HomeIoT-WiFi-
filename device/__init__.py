@@ -1,2 +1,2 @@
-import main
+import main, creds
 from .types import *

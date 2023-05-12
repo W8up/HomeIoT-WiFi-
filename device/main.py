@@ -4,9 +4,10 @@ import json
 from time import sleep
 import machine
 import creds
-import types.light.picoLED as device #Type of device see /types
+from types.light.picoLED import picoLED #Type of device see /types
 #Port to use
 port = 80
+device = picoLED()
 
 ssid = creds.ssid
 password = creds.password
@@ -37,6 +38,7 @@ def serve(connection):
         client = connection.accept()[0]
         request = client.recv(1024)
         request = str(request)
+        client.send('hi') #TODO:figure out why
         try:
             request = request.split()[1]
         except IndexError:
