@@ -1,13 +1,13 @@
 class base:
-    __all__=['get_state','set_light', 'toggle_light', '__init__']
-    def __init__(self):
+    __all__=['get_light_state','set', 'toggle', '__init__']
+    def __init__(self, name):
+        self.friendly_name = name
+    
+    def get_light_state(self):
         pass
     
-    def get_state(self):
+    def set(self):
         pass
     
-    def set_light(self):
-        pass
-    
-    def toggle_light(self):
+    def toggle(self):
         pass

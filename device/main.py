@@ -7,7 +7,7 @@ import creds
 from types.light.picoLED import picoLED #Type of device see /types
 #Port to use
 port = 80
-device = picoLED()
+device = picoLED('picoLED')
 
 ssid = creds.ssid
 password = creds.password
@@ -26,10 +26,14 @@ def connect():
 
 def open_socket(ip, port):
     # Open a socket
-    address = (ip, 80)
-    connection = socket.socket()
-    connection.bind(address)
-    connection.listen(1)
+    try:
+        address = (ip, port)
+        connection = socket.socket()
+        connection.bind(address)
+        connection.listen()
+    except:
+        sleep(1)
+        return open_socket(ip, port)
     return connection
     
 def serve(connection):
@@ -38,7 +42,6 @@ def serve(connection):
         client = connection.accept()[0]
         request = client.recv(1024)
         request = str(request)
-        client.send('hi') #TODO:figure out why
         try:
             request = request.split()[1]
         except IndexError:
@@ -46,7 +49,7 @@ def serve(connection):
         data = device.request(request)
         client.send(json.dumps(data))
         client.close()
-    
+
 ip = connect()
 connection = open_socket(ip, port)
 serve(connection)

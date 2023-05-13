@@ -10,3 +10,6 @@
         request()
         super of base for type
     should be added in __init__.py and __all__ for current dir
+
+#Limitations
+    repeated attempting on and off after fail can cause selected port to become temporarily unusable
