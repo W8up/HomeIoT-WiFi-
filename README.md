@@ -11,3 +11,9 @@
 
 #Limitations
     repeated attempting on and off after fail can cause selected port to become temporarily unusable
+
+#Useful links
+    #Home assistant
+    https://www.home-assistant.io/integrations/http/
+    https://www.home-assistant.io/blog/2016/02/12/classifying-the-internet-of-things/
+    https://developers.home-assistant.io/docs/api/rest/
