@@ -1,4 +1,4 @@
-#How to setup
+#How to setup pi pico w
     copy latest micro python firmware on to device available: https://micropython.org/download/rp2-pico-w/
     change ssid and password in creds.py
     find and change device type in main.py from /types
